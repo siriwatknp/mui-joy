@@ -8,6 +8,7 @@ import Container from "../src/Container";
 import CssBaseline from "../src/CssBaseline";
 import Grid from "../src/Grid";
 import Typography from "../src/Typography";
+import TextField from "../src/TextField";
 
 const LockOutlined = createSvgIcon(
   /*#__PURE__*/ _jsx("path", {
@@ -68,17 +69,18 @@ export default function SignIn() {
           noValidate
           sx={{ mt: 1, minWidth: 396 }}
         >
-          {/* <TextField
+          <TextField
+            component="fieldset"
             margin="normal"
             required
             fullWidth
             id="email"
             label="Email Address"
             name="email"
-            autoComplete="email"
-            autoFocus
+            placeholder="your-email@example.com"
           />
           <TextField
+            component="fieldset"
             margin="normal"
             required
             fullWidth
@@ -86,12 +88,15 @@ export default function SignIn() {
             label="Password"
             type="password"
             id="password"
-            autoComplete="current-password"
+            placeholder="**********"
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          /> */}
+          <Box
+            typography="caption"
+            sx={{ mt: 2, display: "flex", alignItems: "center", gap: 0.5 }}
+          >
+            <input type="checkbox" id="remember-me" />
+            <label htmlFor="remember-me">Remember me</label>
+          </Box>
           <Button
             type="submit"
             fullWidth
