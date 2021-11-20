@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Head from "next/head";
 import { CacheProvider } from "@emotion/react";
 import { CssVarsProvider } from "@mui/joy/styles";
+import { createSpacing, createBreakpoints } from "@mui/system";
 
 import createEmotionCache from "../src/createEmotionCache";
 
@@ -18,7 +19,12 @@ export default function MyApp(props) {
         <title>My page</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
-      <CssVarsProvider>
+      <CssVarsProvider
+        theme={{
+          spacing: createSpacing(),
+          breakpoints: createBreakpoints({}),
+        }}
+      >
         <Component {...pageProps} />
       </CssVarsProvider>
     </CacheProvider>
