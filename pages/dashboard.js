@@ -52,15 +52,18 @@ const ColorSchemePicker = () => {
 
   return (
     <Box
-      sx={(theme) => ({
-        position: "relative",
-        display: "inline-flex",
-        alignItems: "center",
-        minHeight: "48px",
-        border: "1px solid",
-        borderRadius: "24px",
-        ...theme.variant.outlined.primary,
-      })}
+      sx={(theme) => {
+        console.log("theme", theme);
+        return {
+          position: "relative",
+          display: "inline-flex",
+          alignItems: "center",
+          minHeight: "48px",
+          border: "1px solid",
+          borderRadius: "24px",
+          ...theme.variant.outlined.primary,
+        };
+      }}
     >
       <Box sx={{ display: "flex", gap: "8px", p: "6px" }}>
         {["system", "light", "dark"].map((modeId) => {
@@ -115,13 +118,7 @@ const Button = styled("button")(
 );
 
 const Paper = styled("div")(
-  ({
-    theme,
-    variant = "text",
-    color = "neutral",
-    enableContext = false,
-    elevation,
-  }) => [
+  ({ theme, variant = "text", color = "neutral", elevation }) => [
     {
       "--joy-palette-neutral-textBg": "var(--joy-palette-surface-level1)",
       "--joy-palette-neutral-filledBg": "var(--joy-palette-surface-level2)",
@@ -134,9 +131,7 @@ const Paper = styled("div")(
       }),
     },
     theme.variant[variant]?.[color],
-    enableContext &&
-      variant === "contained" &&
-      theme.variant.containedContext?.[color],
+    variant === "contained" && theme.variant.containedContext?.[color],
   ]
 );
 
@@ -275,7 +270,6 @@ export default function JoySketching() {
     <React.Fragment>
       <Paper
         variant="contained"
-        enableContext
         color="primary"
         as="header"
         sx={{
