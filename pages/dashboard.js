@@ -239,6 +239,18 @@ const Input = styled("input")(
   ]
 );
 
+const Chip = styled("span")(
+  ({ theme, variant = "filled", color = "neutral" }) => [
+    {
+      display: "inline-block",
+      padding: "0.25rem 0.75rem",
+      borderRadius: "20px",
+    },
+    theme.typography.detail,
+    theme.variant[variant]?.[color],
+  ]
+);
+
 const Typography = styled("p", {
   shouldForwardProp: (prop) => prop !== "variant" && prop !== "as",
 })(({ theme, variant = "body" }) => ({
@@ -274,6 +286,7 @@ export default function JoySketching() {
           py: 0,
           position: "sticky",
           top: 0,
+          gap: "16px",
         }}
       >
         <IconButton variant="outlined">
@@ -286,9 +299,13 @@ export default function JoySketching() {
           <Search />
           <Input variant="text" placeholder="Search..." />
         </Box>
-        <Box sx={{ ml: "auto" }}>
-          <ColorSchemePicker />
-        </Box>
+        <IconButton variant="text" sx={{ ml: "auto" }}>
+          <Apps />
+        </IconButton>
+        <IconButton variant="text">
+          <Notifications />
+        </IconButton>
+        <ColorSchemePicker />
       </Paper>
       <Box sx={{ display: "flex" }}>
         <Box sx={{ width: 66, flexShrink: 0 }}>
@@ -369,8 +386,18 @@ export default function JoySketching() {
           </Paper>
           <Divider color="neutral" direction="vertical" sx={{ m: "0px" }} />
           <Paper sx={{ width: 320, p: "0px" }}>
-            <Box sx={{ p: "1rem" }}>
+            <Box
+              sx={{
+                p: "1rem",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
               <Typography variant="overline">Inbox</Typography>
+              <IconButton sx={{ minWidth: 28, minHeight: 28 }}>
+                <Refresh />
+              </IconButton>
             </Box>
             {[...Array(5)].map((_, index) => (
               <React.Fragment key={index}>
@@ -382,14 +409,19 @@ export default function JoySketching() {
                     alignItems: "flex-start",
                     ...(index === 0 && {
                       bgcolor: "var(--joy-palette-primary-filledBg)",
-                      "--joy-variant-filledBg":
-                        "var(--joy-palette-primary-filledHoverBg)",
                     }),
                   }}
                 >
                   <Paper
                     variant="filled"
-                    sx={{ minWidth: 32, minHeight: 32 }}
+                    sx={{
+                      minWidth: 32,
+                      minHeight: 32,
+                      ...(index === 0 && {
+                        "--joy-variant-filledBg":
+                          "var(--joy-palette-primary-filledHoverBg)",
+                      }),
+                    }}
                   />
                   <Box sx={{ flexGrow: 1 }}>
                     <Box
@@ -409,6 +441,11 @@ export default function JoySketching() {
                     <Typography variant="detail">
                       Hi, Thomas, You don&apos;t have...
                     </Typography>
+                    {index === 0 && (
+                      <Chip color="success" sx={{ mt: "8px" }}>
+                        Travel
+                      </Chip>
+                    )}
                   </Box>
                 </Box>
                 <Divider color="neutral" sx={{ m: 0 }} />
