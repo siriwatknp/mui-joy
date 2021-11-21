@@ -41,12 +41,10 @@ const SvgIconRoot = styled("svg", {
   display: "inline-block",
   fill: "currentColor",
   flexShrink: 0,
-  fontSize: {
-    inherit: "inherit",
-    small: theme.vars.fontSize.sm,
-    medium: theme.vars.fontSize.md,
-    large: theme.vars.fontSize.lg,
-  }[ownerState.fontSize],
+  fontSize:
+    ownerState.fontSize === "inherit"
+      ? "inherit"
+      : theme.vars.fontSize[ownerState.fontSize],
 }));
 
 const SvgIcon = React.forwardRef(function SvgIcon(inProps, ref) {
@@ -56,7 +54,7 @@ const SvgIcon = React.forwardRef(function SvgIcon(inProps, ref) {
     className,
     color = "inherit",
     component = "svg",
-    fontSize = "medium",
+    fontSize = "lg",
     htmlColor,
     titleAccess,
     viewBox = "0 0 24 24",
@@ -138,7 +136,19 @@ SvgIcon.propTypes /* remove-proptypes */ = {
    * @default 'medium'
    */
   fontSize: PropTypes /* @typescript-to-proptypes-ignore */.oneOfType([
-    PropTypes.oneOf(["inherit", "large", "medium", "small"]),
+    PropTypes.oneOf([
+      "inherit",
+      "xs",
+      "sm",
+      "md",
+      "lg",
+      "xl",
+      "xl2",
+      "xl3",
+      "xl4",
+      "xl5",
+      "xl6",
+    ]),
     PropTypes.string,
   ]),
   /**

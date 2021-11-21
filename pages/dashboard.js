@@ -2,73 +2,25 @@ import * as React from "react";
 import { Box } from "@mui/system";
 import { useColorScheme } from "@mui/joy/styles";
 import { styled } from "@mui/joy/styles";
-
-const Moon = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    {...props}
-  >
-    <path
-      d="M7.5 6.375C7.5 4.93969 7.71141 3.48703 8.25 2.25C4.66734 3.80953 2.25 7.46812 2.25 11.625C2.25 17.2167 6.78328 21.75 12.375 21.75C16.5319 21.75 20.1905 19.3327 21.75 15.75C20.513 16.2886 19.0603 16.5 17.625 16.5C12.0333 16.5 7.5 11.9667 7.5 6.375Z"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
-const System = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    {...props}
-  >
-    <path
-      d="M12 21.75C17.3848 21.75 21.75 17.3848 21.75 12C21.75 6.61522 17.3848 2.25 12 2.25C6.61522 2.25 2.25 6.61522 2.25 12C2.25 17.3848 6.61522 21.75 12 21.75Z"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M12 21.75C6.615 21.75 2.25 17.385 2.25 12C2.25 6.615 6.615 2.25 12 2.25V21.75Z"
-      fill="currentColor"
-    />
-  </svg>
-);
-
-const Sun = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    {...props}
-  >
-    <path
-      d="M12 2.25V4.5M12 19.5V21.75M18.8944 5.10562L17.3034 6.69656M6.69656 17.3034L5.10562 18.8944M21.75 12H19.5M4.5 12H2.25M18.8944 18.8944L17.3034 17.3034M6.69656 6.69656L5.10562 5.10562"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeMiterlimit="10"
-      strokeLinecap="round"
-    />
-    <path
-      d="M12 15.75C14.0711 15.75 15.75 14.0711 15.75 12C15.75 9.92893 14.0711 8.25 12 8.25C9.92893 8.25 8.25 9.92893 8.25 12C8.25 14.0711 9.92893 15.75 12 15.75Z"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeMiterlimit="10"
-      strokeLinecap="round"
-    />
-  </svg>
-);
+import Avatar from "../src/Avatar";
+import {
+  Moon,
+  Sun,
+  System,
+  Apps,
+  Notifications,
+  Search,
+  Shield,
+  PieChart,
+  Person,
+  Settings,
+  FolderOutlined,
+  ReplyOutlined,
+  FlagOutlined,
+  DeleteOutlined,
+  Refresh,
+  KeyboardArrowDown,
+} from "../src/icons";
 
 const PushButton = styled("button", {
   shouldForwardProp: (prop) => prop !== "selected",
@@ -211,7 +163,7 @@ const ListItem = styled("li")(
       borderRadius: 4,
       display: "flex",
       alignItems: "center",
-      justifyContent: "space-between",
+      gap: "16px",
       "&:focus-visible": theme.focus.default,
     },
     theme.variant[variant]?.[color],
@@ -228,6 +180,8 @@ const IconButton = styled("button")(
       justifyContent: "center",
       alignItems: "center",
       padding: "0.25rem",
+      minWidth: 36,
+      minHeight: 36,
       cursor: "pointer",
       background: "transparent",
       borderRadius: theme.borderRadius?.[roundness],
@@ -292,6 +246,18 @@ const Typography = styled("p", {
   ...theme.typography[variant],
 }));
 
+const SelectButton = styled(Button)(({ theme }) => ({
+  minHeight: "22px",
+  padding: "0px 0.5rem",
+  fontWeight: 400,
+  fontSize: "12px",
+  border: "1px solid",
+  borderColor: "transparent",
+  "&:hover": {
+    borderColor: "currentColor",
+  },
+}));
+
 export default function JoySketching() {
   return (
     <React.Fragment>
@@ -311,13 +277,13 @@ export default function JoySketching() {
         }}
       >
         <IconButton variant="outlined">
-          <Sun />
+          <Shield />
         </IconButton>
         <Divider direction="vertical" />
         <Typography sx={{ color: "inherit" }}>Email</Typography>
         <Divider direction="vertical" />
         <Box sx={{ display: "flex", alignItems: "center" }}>
-          <Sun />
+          <Search />
           <Input variant="text" placeholder="Search..." />
         </Box>
         <Box sx={{ ml: "auto" }}>
@@ -346,13 +312,17 @@ export default function JoySketching() {
             }}
           >
             <IconButton variant="outlined">
-              <Sun />
+              <PieChart />
             </IconButton>
             <IconButton variant="outlined">
-              <Sun />
+              <Person />
             </IconButton>
+            <Avatar
+              src="https://avatars.githubusercontent.com/u/18292247?s=128&v=4"
+              sx={{ mt: "auto" }}
+            />
             <IconButton variant="outlined">
-              <Sun />
+              <Settings />
             </IconButton>
           </Box>
         </Box>
@@ -364,18 +334,37 @@ export default function JoySketching() {
             "& > *:not(:last-child)": { flexShrink: 0 },
           }}
         >
-          <Paper sx={{ width: 200, p: "0px" }}>
-            <Box sx={{ p: "1rem" }}>
+          <Paper sx={{ width: 200, px: "0px" }}>
+            <Box sx={{ px: "1rem" }}>
               <Typography variant="overline">Browse</Typography>
             </Box>
             <List sx={{ px: "0.5rem" }}>
               <ListItem variant="filled" color="primary">
+                <FolderOutlined />
                 Inbox
               </ListItem>
-              <ListItem>Sent</ListItem>
-              <ListItem>Draft</ListItem>
-              <ListItem>Flagged</ListItem>
-              <ListItem>Trash</ListItem>
+              <ListItem>
+                <ReplyOutlined /> Sent
+              </ListItem>
+              <ListItem>
+                <FolderOutlined /> Draft
+              </ListItem>
+              <ListItem>
+                <FlagOutlined /> Flagged
+              </ListItem>
+              <ListItem>
+                <DeleteOutlined /> Trash
+              </ListItem>
+            </List>
+            <br />
+            <Box sx={{ px: "1rem" }}>
+              <Typography variant="overline">TAGS</Typography>
+            </Box>
+            <List sx={{ px: "0.5rem" }}>
+              <ListItem>Personal</ListItem>
+              <ListItem>Work</ListItem>
+              <ListItem>Friends</ListItem>
+              <ListItem>Travel</ListItem>
             </List>
           </Paper>
           <Divider color="neutral" direction="vertical" sx={{ m: "0px" }} />
@@ -391,6 +380,11 @@ export default function JoySketching() {
                     display: "flex",
                     gap: "1rem",
                     alignItems: "flex-start",
+                    ...(index === 0 && {
+                      bgcolor: "var(--joy-palette-primary-filledBg)",
+                      "--joy-variant-filledBg":
+                        "var(--joy-palette-primary-filledHoverBg)",
+                    }),
                   }}
                 >
                   <Paper
@@ -442,15 +436,15 @@ export default function JoySketching() {
                 <Button
                   variant="outlined"
                   color="primary"
-                  sx={{ minHeight: 34, p: "0.25rem 1rem" }}
+                  sx={{ minHeight: 36, p: "0.25rem 1rem" }}
                 >
                   Reply
                 </Button>
                 <IconButton variant="outlined" color="primary">
-                  <Sun />
+                  <ReplyOutlined />
                 </IconButton>
                 <IconButton variant="outlined" color="primary">
-                  <Sun />
+                  <DeleteOutlined />
                 </IconButton>
               </Box>
               <Divider sx={{ m: 0 }} />
@@ -467,31 +461,15 @@ export default function JoySketching() {
                   }}
                 >
                   <Typography variant="detail">From</Typography>
-                  <Button
-                    variant="filled"
-                    sx={{
-                      minHeight: "22px",
-                      py: 0,
-                      px: "0.5rem",
-                      fontWeight: 400,
-                      fontSize: "12px",
-                    }}
-                  >
-                    janet@mail.com
-                  </Button>
+                  <SelectButton variant="filled">
+                    janet@mail.com{" "}
+                    <KeyboardArrowDown fontSize="md" sx={{ mr: "-4px" }} />
+                  </SelectButton>
                   <Typography variant="detail">To</Typography>
-                  <Button
-                    variant="filled"
-                    sx={{
-                      minHeight: "22px",
-                      py: 0,
-                      px: "0.5rem",
-                      fontWeight: 400,
-                      fontSize: "12px",
-                    }}
-                  >
-                    janet@mail.com
-                  </Button>
+                  <SelectButton variant="filled">
+                    janet@mail.com{" "}
+                    <KeyboardArrowDown fontSize="md" sx={{ mr: "-4px" }} />
+                  </SelectButton>
                 </Box>
                 <Divider />
                 <Typography>
@@ -533,7 +511,8 @@ export default function JoySketching() {
                       sx={{
                         minWidth: "64px",
                         minHeight: "64px",
-                        borderRadius: 0,
+                        borderTopRightRadius: 0,
+                        borderBottomRightRadius: 0,
                       }}
                     />
                     <Box sx={{ p: "0.75rem" }}>

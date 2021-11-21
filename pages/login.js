@@ -5,7 +5,6 @@ import createSvgIcon from "../src/createSvgIcon";
 import Avatar from "../src/Avatar";
 import Button from "../src/Button";
 import Container from "../src/Container";
-import CssBaseline from "../src/CssBaseline";
 import Grid from "../src/Grid";
 import Typography from "../src/Typography";
 import TextField from "../src/TextField";
@@ -48,7 +47,6 @@ export default function SignIn() {
 
   return (
     <Container component="main" maxWidth="xs">
-      <CssBaseline />
       <Box
         sx={{
           marginTop: 8,

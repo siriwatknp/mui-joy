@@ -6,6 +6,7 @@ import { CssVarsProvider } from "@mui/joy/styles";
 import { createSpacing, createBreakpoints } from "@mui/system";
 
 import createEmotionCache from "../src/createEmotionCache";
+import CssBaseline from "../src/CssBaseline";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -21,10 +22,36 @@ export default function MyApp(props) {
       </Head>
       <CssVarsProvider
         theme={{
+          borderRadius: {
+            default: "8px",
+          },
+          colorSchemes: {
+            light: {
+              palette: {
+                primary: {
+                  outlinedBorder: "var(--joy-palette-neutral-200)",
+                },
+                neutral: {
+                  outlinedBorder: "var(--joy-palette-neutral-200)",
+                },
+              },
+            },
+            dark: {
+              palette: {
+                primary: {
+                  outlinedBorder: "var(--joy-palette-neutral-600)",
+                },
+                neutral: {
+                  outlinedBorder: "var(--joy-palette-neutral-600)",
+                },
+              },
+            },
+          },
           spacing: createSpacing(),
           breakpoints: createBreakpoints({}),
         }}
       >
+        <CssBaseline />
         <Component {...pageProps} />
       </CssVarsProvider>
     </CacheProvider>
