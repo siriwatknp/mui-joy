@@ -14,7 +14,7 @@ jobs:
       - run:
           name: Run E2E tests
           command: yarn test:e2e
-          type: approval
+          environment:
             PLAYWRIGHT_TEST_BASE_URL: https://mui.com
 
 workflows:
