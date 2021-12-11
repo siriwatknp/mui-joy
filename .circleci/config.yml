@@ -1,5 +1,10 @@
 version: 2.1
 
+parameters:
+  playwright-base-url:
+    type: string
+    default: "https://playwright.dev"
+
 jobs:
   Run-e2e:
     docker:
@@ -15,7 +20,7 @@ jobs:
           name: Run E2E tests
           command: yarn test:e2e
           environment:
-            PLAYWRIGHT_TEST_BASE_URL: https://mui.com
+            PLAYWRIGHT_TEST_BASE_URL: << pipeline.parameters.playwright-base-url >>
 
 workflows:
   version: 2
