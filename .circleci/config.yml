@@ -32,4 +32,4 @@ workflows:
   version: 2
   Run-e2e:
     jobs:
-      - Run-e2e:
+      - Run-e2e
