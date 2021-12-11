@@ -1,6 +1,9 @@
 version: 2.1
 
 parameters:
+  should-run-e2e:
+    type: boolean
+    default: false
   playwright-base-url:
     type: string
     default: "https://playwright.dev"
@@ -13,14 +16,17 @@ jobs:
           NODE_ENV: development # Needed if playwright is in `devDependencies`
     steps:
       - checkout
-      - run:
-          name: Install js dependencies
-          command: yarn install --verbose
-      - run:
-          name: Run E2E tests
-          command: yarn test:e2e
-          environment:
-            PLAYWRIGHT_TEST_BASE_URL: << pipeline.parameters.playwright-base-url >>
+      - when:
+          condition: << pipeline.parameters.should-run-e2e >>
+          steps:
+            - run:
+                name: Install js dependencies
+                command: yarn install --verbose
+            - run:
+                name: Run E2E tests
+                command: yarn test:e2e
+                environment:
+                  PLAYWRIGHT_TEST_BASE_URL: << pipeline.parameters.playwright-base-url >>
 
 workflows:
   version: 2
