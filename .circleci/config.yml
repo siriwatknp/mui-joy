@@ -11,6 +11,4 @@ jobs:
       - run:
           name: Install js dependencies
           command: yarn install --verbose
-      - run:
-          name: yarn test:e2e
-          command: yarn test:e2e
+      - run: npx playwright test
