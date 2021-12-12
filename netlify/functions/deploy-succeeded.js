@@ -7,6 +7,7 @@ exports.handler = async (event, context) => {
     "process.env.CIRCLE_CI_API_TOKEN",
     process.env.CIRCLE_CI_API_TOKEN
   );
+  const payload = JSON.parse(event.body);
   const data = await fetch(
     "https://circleci.com/api/v2/project/github/siriwatknp/mui-joy/pipeline",
     {
@@ -16,10 +17,10 @@ exports.handler = async (event, context) => {
         Authorization: `Basic ${process.env.CIRCLE_CI_API_TOKEN}`,
       },
       body: JSON.stringify({
-        branch: event.body.payload.branch,
+        branch: payload.branch,
         parameters: {
           workflow: "e2e-website",
-          "playwright-base-url": event.body.payload.deploy_url,
+          "playwright-base-url": payload.deploy_url,
         },
       }),
     }
