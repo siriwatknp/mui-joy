@@ -1,15 +1,21 @@
 version: 2.1
 
 parameters:
-  should-run-e2e:
-    type: boolean
-    default: false
+  workflow:
+    type: string
+    default: pipeline
   playwright-base-url:
     type: string
     default: "https://playwright.dev"
 
 jobs:
-  Run-e2e:
+  test_unit:
+    steps:
+      - run: "echo test unit"
+  test_lint:
+    steps:
+      - run: "echo test lint"
+  test_e2e_website:
     docker:
       - image: mcr.microsoft.com/playwright@sha256:f08e263c95e83334104e6e2fee047ad92062a03af6ae94c0f8686ba2b3014823
         environment:
@@ -30,6 +36,14 @@ jobs:
 
 workflows:
   version: 2
-  Run-e2e:
+  pipeline:
+    when:
+      equal: [pipeline, << pipeline.parameters.workflow >>]
     jobs:
-      - Run-e2e:
+      - test_unit
+      - test_lint
+  e2e-website:
+    when:
+      equal: [e2e-website, << pipeline.parameters.workflow >>]
+    jobs:
+      - test_e2e_website:
