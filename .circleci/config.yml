@@ -10,9 +10,13 @@ parameters:
 
 jobs:
   test_unit:
+    docker:
+      - image: circleci/node:12
     steps:
       - run: "echo test unit"
   test_lint:
+    docker:
+      - image: circleci/node:12
     steps:
       - run: "echo test lint"
   test_e2e_website:
@@ -22,17 +26,14 @@ jobs:
           NODE_ENV: development # Needed if playwright is in `devDependencies`
     steps:
       - checkout
-      - when:
-          condition: << pipeline.parameters.should-run-e2e >>
-          steps:
-            - run:
-                name: Install js dependencies
-                command: yarn install --verbose
-            - run:
-                name: Run E2E tests
-                command: yarn test:e2e
-                environment:
-                  PLAYWRIGHT_TEST_BASE_URL: << pipeline.parameters.playwright-base-url >>
+      - run:
+          name: Install js dependencies
+          command: yarn install --verbose
+      - run:
+          name: Run E2E tests
+          command: yarn test:e2e
+          environment:
+            PLAYWRIGHT_TEST_BASE_URL: << pipeline.parameters.playwright-base-url >>
 
 workflows:
   version: 2
@@ -46,4 +47,4 @@ workflows:
     when:
       equal: [e2e-website, << pipeline.parameters.workflow >>]
     jobs:
-      - test_e2e_website:
+      - test_e2e_website
