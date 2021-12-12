@@ -8,8 +8,9 @@ exports.handler = async (event, context) => {
     process.env.CIRCLE_CI_API_TOKEN
   );
   try {
-    const payload = JSON.parse(event.body);
-    console.log("payload", payload);
+    const { payload } = JSON.parse(event.body);
+    console.log("payload.branch", payload.branch);
+    console.log("payload.deploy_url", payload.deploy_url);
     await fetch(
       "https://circleci.com/api/v2/project/github/siriwatknp/mui-joy/pipeline",
       {
