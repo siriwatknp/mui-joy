@@ -20,7 +20,7 @@ exports.handler = async (event, context) => {
           branch: event.payload.branch,
           parameters: {
             workflow: "e2e-website",
-            "playwright-base-url": "https://mui.com",
+            "playwright-base-url": event.payload.deploy_url,
           },
         }),
       }
@@ -30,6 +30,7 @@ exports.handler = async (event, context) => {
       body: JSON.stringify({}),
     };
   } catch (error) {
+    console.log("error", error);
     return {
       statusCode: 400,
       body: JSON.stringify(error),
