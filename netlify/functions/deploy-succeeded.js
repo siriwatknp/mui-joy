@@ -11,7 +11,7 @@ exports.handler = async (event, context) => {
     const { payload } = JSON.parse(event.body);
     console.log("payload.branch", payload.branch);
     console.log("payload.deploy_url", payload.deploy_url);
-    await fetch(
+    const response = await fetch(
       "https://circleci.com/api/v2/project/github/siriwatknp/mui-joy/pipeline",
       {
         method: "POST",
@@ -28,9 +28,11 @@ exports.handler = async (event, context) => {
         }),
       }
     );
+    const json = response.json();
+    console.log("json", json);
     return {
       statusCode: 200,
-      body: JSON.stringify({}),
+      body: JSON.stringify(json),
     };
   } catch (error) {
     console.log("error", error);
