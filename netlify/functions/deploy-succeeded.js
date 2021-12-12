@@ -1,7 +1,8 @@
 const fetch = require("node-fetch");
 
-exports.handler = async (event) => {
+exports.handler = async (event, context) => {
   console.log("event", event);
+  console.log("context", context);
   try {
     await fetch(
       "https://circleci.com/api/v2/project/github/siriwatknp/mui-joy/pipeline",
