@@ -8,7 +8,8 @@ exports.handler = async (event, context) => {
     process.env.CIRCLE_CI_API_TOKEN
   );
   const payload = JSON.parse(event.body);
-  const data = await fetch(
+  console.log("payload", payload);
+  const response = await fetch(
     "https://circleci.com/api/v2/project/github/siriwatknp/mui-joy/pipeline",
     {
       method: "POST",
@@ -25,6 +26,8 @@ exports.handler = async (event, context) => {
       }),
     }
   );
+  const data = response.json();
+  console.log("data", data);
   return {
     statusCode: 200,
     body: JSON.stringify(data),
