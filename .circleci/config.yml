@@ -1,7 +1,25 @@
 version: 2.1
 
+parameters:
+  workflow:
+    type: string
+    default: pipeline
+  playwright-base-url:
+    type: string
+    default: "https://playwright.dev"
+
 jobs:
-  build:
+  test_unit:
+    docker:
+      - image: circleci/node:12
+    steps:
+      - run: "echo test unit"
+  test_lint:
+    docker:
+      - image: circleci/node:12
+    steps:
+      - run: "echo test lint"
+  test_e2e_website:
     docker:
       - image: mcr.microsoft.com/playwright@sha256:f08e263c95e83334104e6e2fee047ad92062a03af6ae94c0f8686ba2b3014823
         environment:
@@ -11,4 +29,22 @@ jobs:
       - run:
           name: Install js dependencies
           command: yarn install --verbose
-      - run: npx playwright test
+      - run:
+          name: Run E2E tests
+          command: yarn test:e2e
+          environment:
+            PLAYWRIGHT_TEST_BASE_URL: << pipeline.parameters.playwright-base-url >>
+
+workflows:
+  version: 2
+  pipeline:
+    when:
+      equal: [pipeline, << pipeline.parameters.workflow >>]
+    jobs:
+      - test_unit
+      - test_lint
+  e2e-website:
+    when:
+      equal: [e2e-website, << pipeline.parameters.workflow >>]
+    jobs:
+      - test_e2e_website
