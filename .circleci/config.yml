@@ -32,8 +32,6 @@ jobs:
       - run:
           name: Run E2E tests
           command: yarn test:e2e
-          environment:
-            PLAYWRIGHT_TEST_BASE_URL: << pipeline.parameters.playwright-base-url >>
 
 workflows:
   version: 2

@@ -23,7 +23,7 @@ exports.handler = async (event, context) => {
           branch: payload.branch,
           parameters: {
             workflow: "e2e-website",
-            "playwright-base-url": payload.deploy_url,
+            PLAYWRIGHT_TEST_BASE_URL: payload.deploy_url,
           },
         }),
       }
